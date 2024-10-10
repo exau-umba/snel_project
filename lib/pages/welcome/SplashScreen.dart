@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../utils/Routes.dart';
+import '../../utils/components/components.dart';
+import '../../utils/constate.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({Key? key}) : super(key: key);
@@ -24,14 +26,11 @@ class _SplashscreenState extends State<Splashscreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return Stack(
-        alignment : AlignmentDirectional.center,
-      children: [
-        Container(
-            color : Colors.white
-        ),
-        Image.asset("assets/logo.png", width : Adaptive.w(50)),
-      ],
+    return Scaffold(
+      body: Container(
+          color : KcolorPrimary.withOpacity(1.5.sp),
+        child: Center(child: themeLogo()),
+      ),
     );
   }
 }
