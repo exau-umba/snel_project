@@ -64,7 +64,7 @@ class _FormPaymentState extends State<FormPayment> {
         titleTextStyle: TextStyle(color: KColorWhite),
         centerTitle: true,
       ),
-      body: widget.item['paie'] ? _body2() : _body(),
+      body: widget.item['paie'] ? _body() : _body2(),
     );
   }
 
@@ -78,7 +78,7 @@ class _FormPaymentState extends State<FormPayment> {
       child: Form(
         key: _formKey,
         child: SingleChildScrollView(
-          child: widget.item['banque']
+          child: widget.item['item']['mobile_money']==false
               ? Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -185,7 +185,7 @@ class _FormPaymentState extends State<FormPayment> {
                         onSaved: (value) => _bic = value,
                       ),
                     ),
-                    Padding(
+                    /*Padding(
                       padding: EdgeInsets.only(
                           left: spacing_standard,
                           right: spacing_standard,
@@ -193,14 +193,14 @@ class _FormPaymentState extends State<FormPayment> {
                       child: formField(
                         context,
                         readOnly: true,
-                        "${widget.item['facture'].montant}",
+                        "sdfcghbjn",
                         prefixIcon: Icons.monetization_on,
                         keyboardType: TextInputType.number,
                         validator: (value) {},
-                        onSaved: (value) => widget.item['facture'].montant =
+                        onSaved: (value) => _montant =
                             double.tryParse(value!),
                       ),
-                    ),
+                    ),*/
                     SizedBox(
                       width: Adaptive.w(double.infinity),
                       child: Padding(
@@ -214,7 +214,7 @@ class _FormPaymentState extends State<FormPayment> {
                               bottom: spacing_standard,
                               left: spacing_standard,
                               right: spacing_standard),
-                          child: Text("Payer",
+                          child: Text("Enregistrer",
                               style: TextStyle(color: KColorWhite)),
                           shape: RoundedRectangleBorder(
                               borderRadius:
@@ -223,7 +223,10 @@ class _FormPaymentState extends State<FormPayment> {
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
-                              Navigator.pop(context);
+                              showLoadingDialog(context, Duration(seconds: 2));
+                              Future.delayed(Duration(seconds: 2),(){
+                                Navigator.pop(context);
+                              });
                             }
                           },
                         ),
@@ -234,7 +237,7 @@ class _FormPaymentState extends State<FormPayment> {
               : Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Padding(
+                    /*Padding(
                       padding: EdgeInsets.only(
                           left: spacing_standard,
                           right: spacing_standard,
@@ -242,13 +245,13 @@ class _FormPaymentState extends State<FormPayment> {
                       child: formField(
                         context,
                         readOnly: true,
-                        "${widget.item['facture'].montant}",
+                        "Montant",
                         prefixIcon: Icons.monetization_on,
                         keyboardType: TextInputType.number,
                         validator: (value) {},
                         onSaved: (value) => _montant = double.tryParse(value!),
                       ),
-                    ),
+                    ),*/
                     Padding(
                       padding: EdgeInsets.only(
                           left: spacing_standard,
@@ -295,7 +298,7 @@ class _FormPaymentState extends State<FormPayment> {
                                   bottom: spacing_standard,
                                   left: spacing_standard,
                                   right: spacing_standard),
-                              child: Text("Payer",
+                              child: Text("Enregistrer",
                                   style: TextStyle(color: KColorWhite)),
                               shape: RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(
@@ -307,7 +310,10 @@ class _FormPaymentState extends State<FormPayment> {
                                   print(
                                       "LABEL ${numeroCarteController.text}- IDCLIENT ${cvvController.text}");
                                   //context.read<PaymentBloc>().add(AddCardPayment(numero: numeroCarteController.text,nom: nomCarteController.text, date: dateController.text, cvv: cvvController.text, idClient: 1));
-                                  Navigator.pop(context);
+                                  showLoadingDialog(context, Duration(seconds: 2));
+                                  Future.delayed(Duration(seconds: 2),(){
+                                    Navigator.pop(context);
+                                  });
                                 }
                                 dateController.clear();
                                 cvvController.clear();

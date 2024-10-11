@@ -31,6 +31,114 @@ Widget onLoading(BuildContext context) {
   );
 }
 
+Widget onLoading2(BuildContext context) {
+  return Container(
+    alignment: Alignment.center,
+    child: Container(
+      width: Adaptive.w(35),
+      height: 15.h,
+      alignment: Alignment.center,
+      margin:  EdgeInsets.all(spacing_standard),
+      padding:  EdgeInsets.all(spacing_standard),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(spacing_standard),
+        color: t12_edittext_background
+      ),
+      child:Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CircularProgressIndicator(color: KcolorPrimary,),
+          SizedBox(height: 2.h,),
+          text("Patientez...", textColor: KcolorPrimary, fontSize: textSizeMedium)
+        ],
+      ),
+    ),
+  );
+}
+
+Widget succes(BuildContext context){
+  return Container(
+    alignment: Alignment.center,
+    child: Container(
+      margin:  EdgeInsets.all(spacing_standard),
+      padding:  EdgeInsets.all(spacing_standard),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(spacing_standard),
+        color: KColorWhite,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+         // const SizedBox(height: 10.0),
+          Icon(
+            Icons.check_circle_outline,
+            color: KColorSucces,
+            size: 30.sp,
+          ),
+          SizedBox(height: 3.h),
+          text(
+            "Succes",
+            fontSize: textSizeLarge,
+            textColor: KcolorPrimary,
+            isCentered: true,
+          ),
+          Divider(),
+          text(
+            "Transaction a réussi",
+            fontSize: textSizeMedium,
+            textColor: t12_text_color_primary,
+            isCentered: true,
+          ),
+          SizedBox(height: 5.h),
+          SizedBox(
+            width: Adaptive.w(double.infinity) ,
+            child: TextButton(
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.all(5.0),
+              ),
+              child: text("OK", textColor: KcolorPrimary),
+              onPressed: () => Navigator.pop(context, true),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+void showSuccesDialog(BuildContext context) {
+  // Affiche la boîte de dialogue
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return succes(context);
+    },
+  );
+
+  // Ferme la boîte de dialogue après la durée spécifiée
+  Future.delayed(Duration(seconds: 2), () {
+    Navigator.of(context).pop(); // Ferme la boîte de dialogue
+  });
+
+
+}
+
+// Fonction pour afficher la boîte de dialogue et la fermer après un certain temps
+void showLoadingDialog(BuildContext context, Duration duration) {
+  // Affiche la boîte de dialogue
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return onLoading2(context);
+    },
+  );
+
+  // Ferme la boîte de dialogue après la durée spécifiée
+  Future.delayed(duration, () {
+    Navigator.of(context).pop(); // Ferme la boîte de dialogue
+  });
+}
+
 AlertDialog alertDialogue= AlertDialog(
   backgroundColor: KColorWhite,
   content: Container(

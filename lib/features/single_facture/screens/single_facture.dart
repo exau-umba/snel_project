@@ -23,46 +23,45 @@ class _SingleFactureState extends State<SingleFacture> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => FactureBloc()..add(FetchFacture(widget.facture)),
-      child: SafeArea(
-          child: Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(color: KColorWhite),
-          backgroundColor: KcolorPrimary,
-          leading: IconButton(
-            icon: Icon(Icons.close_outlined),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          actions: [
-            widget.facture.statut==true? Container():
-            PopupMenuButton<String>(
-              onSelected: (value) {
-                // Gérer l'option sélectionnée
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('$value sélectionné')),
-                );
-              },
-              itemBuilder: (BuildContext context) {
-                return [
-                  PopupMenuItem<String>(
-                    value: 'Payé',
-                    onTap: () {
-                      mCornerBottomSheet(context);
-                    },
-                    child: Text('Payé'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'Reclamé',
-                    child: Text('Reclamé'),
-                  ),
-                ];
-              },
-            ),
-          ],
+      child: Scaffold(
+              appBar: AppBar(
+      iconTheme: IconThemeData(color: KColorWhite),
+      backgroundColor: KcolorPrimary,
+      leading: IconButton(
+        icon: Icon(Icons.close_outlined),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      actions: [
+        widget.facture.statut==true? Container():
+        PopupMenuButton<String>(
+          onSelected: (value) {
+            // Gérer l'option sélectionnée
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('$value sélectionné')),
+            );
+          },
+          itemBuilder: (BuildContext context) {
+            return [
+              PopupMenuItem<String>(
+                value: 'Payé',
+                onTap: () {
+                  mCornerBottomSheet(context);
+                },
+                child: Text('Payé'),
+              ),
+              PopupMenuItem<String>(
+                value: 'Reclamé',
+                child: Text('Reclamé'),
+              ),
+            ];
+          },
         ),
-        body: _body(),
-      )),
+      ],
+              ),
+              body: _body(),
+            ),
     );
   }
 
@@ -316,7 +315,7 @@ class _SingleFactureState extends State<SingleFacture> {
                           color: KcolorPrimary,
                           onPressed: () {
                             Navigator.pop(aContext);
-                            Navigator.pushNamed(context, Routes.formPayment, arguments: {
+                            Navigator.pushNamed(context, Routes.modePayment, arguments: {
                               "banque":false,
                               "paie":true,
                               "facture":widget.facture
@@ -343,7 +342,7 @@ class _SingleFactureState extends State<SingleFacture> {
                           color: KcolorPrimary,
                           onPressed: () {
                             Navigator.pop(aContext);
-                            Navigator.pushNamed(context, Routes.formPayment, arguments: {
+                            Navigator.pushNamed(context, Routes.modePayment, arguments: {
                               "banque":true,
                               "paie":true,
                               "facture":widget.facture

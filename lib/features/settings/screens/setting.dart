@@ -77,7 +77,7 @@ class _SettingState extends State<Setting> {
               leading: Icon(Icons.payment),
               trailing: Icon(Icons.arrow_forward_ios),
               onPressed: (context) {
-                Navigator.pushNamed(context, Routes.modePayment);
+                //Navigator.pushNamed(context, Routes.modePayment);
               },
             )
           ]

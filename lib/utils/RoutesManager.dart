@@ -27,7 +27,8 @@ class RoutesManager{
       case Routes.Subscription:
         return MaterialPageRoute(builder: (_)=>SubscriptionScreen());
       case Routes.modePayment:
-        return MaterialPageRoute(builder: (_)=>ModePayment());
+        var objet = r.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(builder: (_)=>ModePayment(objet: objet,));
       case Routes.single_fature:
         print("============================================ ${r.arguments}");
         var facture = r.arguments as Map<String, dynamic>;
