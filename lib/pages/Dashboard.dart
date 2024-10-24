@@ -8,6 +8,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:snel_project/features/authentication/compte_snel/ajout_compte_snel/ajout_compte_snel_bloc.dart';
 import 'package:snel_project/features/single_facture/facture/facture_bloc.dart';
 import 'package:snel_project/utils/Routes.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:graphic/graphic.dart' as graphic;
 import 'package:snel_project/utils/components/formField.dart';
 import '../data/dataBrut.dart';
@@ -111,7 +112,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       _remainingSubscription -= 20;
     });
   }*/
-
+bool isDialOpen = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,12 +130,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           actions: [
             IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.notifications, color: Colors.white))
+                onPressed: ()=> Navigator.pushNamed(context, Routes.abonnement),
+                icon: Icon(Icons.subscriptions, color: Colors.white))
           ],
         ),
         //backgroundColor: KcolorPrimary,
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton : SpeedDial(
+          backgroundColor: KcolorPrimary,
+          animatedIconTheme: IconThemeData(color: KColorWhite),
+          animatedIcon: AnimatedIcons.menu_close,
+          overlayOpacity: 2.5.sp,
+          children: [
+            SpeedDialChild(
+              child: Icon(Icons.add_home_work_rounded, color: KcolorPrimary,),
+              label: 'Ajouter un compte snel',
+              onTap: () => Navigator.pushNamed(context, Routes.addAccountSnel),
+            ),
+            SpeedDialChild(
+              child: Icon(Icons.subscriptions, color: KcolorPrimary,),
+              label: 'Abonnement',
+              onTap: () => Navigator.pushNamed(context, Routes.add_abonnement),
+            ),
+          ],
+        ),
+        /*floatingActionButton: FloatingActionButton(
           backgroundColor: KcolorPrimary,
           foregroundColor: KColorWhite,
           onPressed: () async {
@@ -147,15 +166,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
             }*/
           },
           child: Icon(Icons.add),
-        ),
-        body: RefreshIndicator(
-            onRefresh: () async {
-              await context
-                  .watch()<AjoutCompteSnelBloc>()
-                  .add(GetAccountSnel());
-              Duration(seconds: 2);
-            },
-            child: _body()));
+        ),*/
+        body: AnimatedContainer(
+          duration: Duration(milliseconds: 300),
+            color: isDialOpen ? Colors.grey[200] : Colors.white,
+          child: RefreshIndicator(
+              onRefresh: () async {
+                await context
+                    .watch()<AjoutCompteSnelBloc>()
+                    .add(GetAccountSnel());
+                Duration(seconds: 2);
+              },
+              child: _body()),
+        ));
   }
 
   Widget _body() {
@@ -176,7 +199,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       .entries
                       .map((e) => InkWell(
                             onTap: () {
-                              print("OOKKKKK");
+                              Navigator.pushNamed(context, Routes.single_compte, arguments: e.value.toJson());
                             },
                             child: Card(
                               color: KColorWhite,

@@ -74,7 +74,7 @@ class _ModePaymentState extends State<ModePayment> {
             child: formField(
               context,
               readOnly: true,
-              "${widget.objet['facture'].montant}",
+              "${widget.objet['paie']? widget.objet['facture'].montant: widget.objet['facture'] }",
               prefixIcon: Icons.monetization_on,
               keyboardType: TextInputType.number,
               validator: (value) {},

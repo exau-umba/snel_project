@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../utils/components/components.dart';
+import '../utils/constate.dart';
+
 class SubscriptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Réabonnement'),
+        title: text("Abonnement", textColor: KColorWhite, fontSize: 20.sp),
+        centerTitle: true,
+        backgroundColor: KcolorPrimary,
+        iconTheme: IconThemeData(color: KColorWhite),
       ),
       body: Center(
         child: Column(
@@ -15,9 +21,8 @@ class SubscriptionScreen extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            Text(
+            text(
               'Choisissez votre abonnement:',
-              style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 20),
             ElevatedButton(

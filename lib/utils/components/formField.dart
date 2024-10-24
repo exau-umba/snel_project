@@ -67,3 +67,44 @@ Widget formField(context, hint,
     style: TextStyle(fontSize: textSizeNormal, color: isDummy ? Colors.transparent : t12_text_color_primary),
   );
 }
+
+Widget formFieldSelect(context, hint,
+    {isEnabled = true,
+      isDummy = false,
+      required List<DropdownMenuItem<String>> options,
+      selectedOption,
+      isPasswordVisible = false,
+      isPassword = false,
+      keyboardType = TextInputType.text,
+      FormFieldValidator<Object>? validator,
+      onChanged,
+      readOnly = false,
+      textInputAction = TextInputAction.next,
+      FocusNode? focusNode,
+      FocusNode? nextFocus,
+      IconData? suffixIcon,
+      prefixIcon,
+      maxLine = 1,
+      suffixIconSelector}) {
+  return DropdownButtonFormField(
+    items: options,
+    validator: validator,
+    onChanged: onChanged,
+    focusNode: focusNode,
+    value: selectedOption,
+    decoration: InputDecoration(
+      focusedBorder: UnderlineInputBorder(borderRadius: BorderRadius.circular(spacing_standard), borderSide: BorderSide(color: Colors.transparent)),
+      enabledBorder: UnderlineInputBorder(borderRadius: BorderRadius.circular(spacing_standard), borderSide: BorderSide(color: Colors.transparent)),
+      filled: true,
+      fillColor: t12_edittext_background,
+      hintText: hint,
+      hintStyle: TextStyle(fontSize: textSizeNormal, color: t12_text_secondary),
+      prefixIcon: Icon(
+        prefixIcon,
+        color: t12_text_secondary,
+        size: 20,
+      ),
+    ),
+    style: TextStyle(fontSize: textSizeNormal, color: isDummy ? Colors.transparent : t12_text_color_primary),
+  );
+}

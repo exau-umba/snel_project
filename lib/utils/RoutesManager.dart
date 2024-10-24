@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:snel_project/data/models/Facture.dart';
+import 'package:snel_project/data/models/compte_snel.dart';
 import 'package:snel_project/features/authentication/auth/screens/sign_up.dart';
+import 'package:snel_project/features/authentication/compte_snel/screens/abonnement.dart';
+import 'package:snel_project/features/authentication/compte_snel/screens/add_abonnement.dart';
 import 'package:snel_project/features/form_mode_payment/screens/form_payment.dart';
 import 'package:snel_project/features/paiement/screens/mode_payment.dart';
 import 'package:snel_project/features/single_facture/screens/single_facture.dart';
@@ -11,6 +14,7 @@ import 'package:snel_project/pages/SubscibeAbonnement.dart';
 import '../features/Navifation/screens/navigation_home.dart';
 import '../features/authentication/compte_snel/screens/account_form.dart';
 import '../features/authentication/auth/screens/loginPage.dart';
+import '../features/authentication/compte_snel/screens/details_compte.dart';
 import '../pages/home/HomePage.dart';
 import '../pages/welcome/SplashScreen.dart';
 import 'Routes.dart';
@@ -24,6 +28,10 @@ class RoutesManager{
         return MaterialPageRoute(builder: (_)=>DashboardScreen());
       case Routes.addAccountSnel:
         return MaterialPageRoute(builder: (_)=>AccountForm());
+      case Routes.add_abonnement:
+        return MaterialPageRoute(builder: (_)=> EnergyConversionForm());
+      case Routes.abonnement:
+        return MaterialPageRoute(builder: (_)=> Abonnement());
       case Routes.Subscription:
         return MaterialPageRoute(builder: (_)=>SubscriptionScreen());
       case Routes.modePayment:
@@ -34,6 +42,11 @@ class RoutesManager{
         var facture = r.arguments as Map<String, dynamic>;
         var factureFinale = Facture.fromJson(facture);
         return MaterialPageRoute(builder: (_)=>SingleFacture(facture: factureFinale,));
+      case Routes.single_compte:
+        print("============================================ ${r.arguments}");
+        var compte = r.arguments as Map<String, dynamic>;
+        var factureFinale = CompteSnel.fromJson(compte);
+        return MaterialPageRoute(builder: (_)=>DetailCompte(compteSnel: factureFinale,));
       case Routes.formPayment:
         print("================= ${r.arguments}");
         var item = r.arguments;
