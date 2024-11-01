@@ -3,66 +3,82 @@ import 'package:flutter/material.dart';
 final List<Map<String, dynamic>> paymentMethods = [
   {
     'mobile_money': false,
+    'name':'Visa',
     'imageUrl': 'assets/mode_payment/visa.png',
   },
   {
     'mobile_money': false,
+    'name':'Mastercard',
     'imageUrl': 'assets/mode_payment/mastercard.png',
   },
   {
     'mobile_money': false,
+    'name':'Equity BCDC',
     'imageUrl': 'assets/mode_payment/equity.png',
   },
   {
     'mobile_money': false,
+    'name':'Afriland First Bank',
     'imageUrl': 'assets/mode_payment/661b249b-5bf0-4b8d-b7f4-1b3bd2c02a67.png',
   },
   {
     'mobile_money': false,
+    'name':'Ecobank',
     'imageUrl': 'assets/mode_payment/images.jpeg',
   },
   {
     'mobile_money': false,
+    'name':'Bank Of Afrika',
     'imageUrl': 'assets/mode_payment/BOA-CI.webp',
   },
   {
     'mobile_money': false,
+    'name':'FirstBank',
     'imageUrl': 'assets/mode_payment/firstbank.png',
   },
   {
     'mobile_money': false,
+    'name':'Rawbank',
     'imageUrl': 'assets/mode_payment/rawbank.png',
   },
   {
     'mobile_money': false,
+    'name':'TMB',
     'imageUrl': 'assets/mode_payment/images.png',
   },
   {
     'mobile_money': false,
+    'name':'Illicocach',
     'imageUrl': 'assets/mode_payment/Illicocash-.webp',
   },
   {
     'mobile_money': true,
+    'name':'Orange Money',
     'imageUrl': 'assets/mode_payment/Money_Logo_Portrait_Black_RGB.png',
   },
   {
     'mobile_money': true,
+    'name':'M-Pesa',
     'imageUrl': 'assets/mode_payment/images.jpeg-7.jpg',
   },
   {
     'mobile_money': true,
+    'name':'Airtel Money',
     'imageUrl': 'assets/mode_payment/49YTv0_o_400x400.png',
   },
   {
     'mobile_money': true,
+    'name':'Afrimoney',
     'imageUrl': 'assets/mode_payment/AFR.jpg',
   },
   {
     'mobile_money': false,
+    'name':'RakkaCach',
     'imageUrl': 'assets/mode_payment/Backdrop-RakkaCach.png'
   },
   {
     'mobile_money':false,
+    'name':'Mosolo',
     'imageUrl':'assets/mode_payment/mosolo.jpg'
   }
 ];

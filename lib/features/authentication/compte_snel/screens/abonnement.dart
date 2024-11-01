@@ -4,6 +4,8 @@ import 'package:snel_project/utils/components/components.dart';
 import 'package:snel_project/utils/constate.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../utils/Routes.dart';
+
 class Abonnement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -15,6 +17,20 @@ class Abonnement extends StatelessWidget {
         centerTitle: true,
         iconTheme: IconThemeData(color: KColorWhite),
         elevation: 0,
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: KcolorPrimary,
+        foregroundColor: KColorWhite,
+        onPressed: () async {
+          Navigator.pushNamed(context, Routes.add_abonnement);
+          /*final result = await Navigator.pushNamed(context, Routes.Subscription);
+            if (result != null && result is int) {
+              setState(() {
+                _remainingSubscription = result;
+              });
+            }*/
+        },
+        child: Icon(Icons.add),
       ),
       body: Container(
         color: KcolorPrimary.withOpacity(1.5.sp),

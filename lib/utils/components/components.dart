@@ -4,8 +4,8 @@ import '../constate.dart';
 
 Widget themeLogo() {
   return Container(
-    child: Image.asset("assets/logo.png", width: Adaptive.w(20), height: 6.h)
-  );
+      child:
+          Image.asset("assets/logo.png", width: Adaptive.w(20), height: 6.h));
 }
 
 Widget onLoading(BuildContext context) {
@@ -15,20 +15,29 @@ Widget onLoading(BuildContext context) {
     child: AlertDialog(
       backgroundColor: t12_edittext_background,
       shape: RoundedRectangleBorder(
-          borderRadius:
-          BorderRadius.all(Radius.circular(spacing_standard))),
+          borderRadius: BorderRadius.all(Radius.circular(spacing_standard))),
       //contentPadding: EdgeInsets.all(.0.sp),
       insetPadding: EdgeInsets.symmetric(horizontal: 0.sp),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CircularProgressIndicator(color: KcolorPrimary,),
-          SizedBox(height: 2.h,),
-          text("Patientez...", textColor: KcolorPrimary, fontSize: textSizeMedium)
+          CircularProgressIndicator(
+            color: KcolorPrimary,
+          ),
+          SizedBox(
+            height: 2.h,
+          ),
+          text("Patientez...",
+              textColor: KcolorPrimary, fontSize: textSizeMedium)
         ],
       ),
     ),
   );
+}
+
+bool validationEmail(value) {
+  return RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+      .hasMatch(value);
 }
 
 Widget onLoading2(BuildContext context) {
@@ -38,30 +47,72 @@ Widget onLoading2(BuildContext context) {
       width: Adaptive.w(35),
       height: 15.h,
       alignment: Alignment.center,
-      margin:  EdgeInsets.all(spacing_standard),
-      padding:  EdgeInsets.all(spacing_standard),
+      margin: EdgeInsets.all(spacing_standard),
+      padding: EdgeInsets.all(spacing_standard),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(spacing_standard),
-        color: t12_edittext_background
-      ),
-      child:Column(
+          borderRadius: BorderRadius.circular(spacing_standard),
+          color: t12_edittext_background),
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CircularProgressIndicator(color: KcolorPrimary,),
-          SizedBox(height: 2.h,),
-          text("Patientez...", textColor: KcolorPrimary, fontSize: textSizeMedium)
+          CircularProgressIndicator(
+            color: KcolorPrimary,
+          ),
+          SizedBox(
+            height: 2.h,
+          ),
+          text("Patientez...",
+              textColor: KcolorPrimary, fontSize: textSizeMedium)
         ],
       ),
     ),
   );
 }
 
-Widget succes(BuildContext context){
+Widget validation(BuildContext context, {
+  String? title,
+  String? content,
+  VoidCallback? onTapYes,
+  VoidCallback? onTapNon,
+}) {
+  return AlertDialog(
+    title: text(title??'',
+        textColor: t12_text_color_primary, fontSize: textSizeLarge),
+    backgroundColor: KColorWhite,
+    content: text(content??'',
+        textColor: t12_text_color_primary, fontSize: textSizeMedium),
+    actions: [
+      SizedBox(
+        width: Adaptive.w(double.infinity),
+        child: Row(
+          children: [
+            TextButton(
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.all(5.0),
+              ),
+              child: text("Oui", textColor: KcolorPrimary, fontSize: 18.sp),
+              onPressed: () => onTapYes,
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.all(5.0),
+              ),
+              child: text("Annuler", textColor: KColorRed, fontSize: 18.sp),
+              onPressed: () => onTapNon,
+            ),
+          ],
+        ),
+      )
+    ],
+  );
+}
+
+Widget succes(BuildContext context) {
   return Container(
     alignment: Alignment.center,
     child: Container(
-      margin:  EdgeInsets.all(spacing_standard),
-      padding:  EdgeInsets.all(spacing_standard),
+      margin: EdgeInsets.all(spacing_standard),
+      padding: EdgeInsets.all(spacing_standard),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(spacing_standard),
         color: KColorWhite,
@@ -69,7 +120,7 @@ Widget succes(BuildContext context){
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-         // const SizedBox(height: 10.0),
+          // const SizedBox(height: 10.0),
           Icon(
             Icons.check_circle_outline,
             color: KColorSucces,
@@ -91,7 +142,7 @@ Widget succes(BuildContext context){
           ),
           SizedBox(height: 5.h),
           SizedBox(
-            width: Adaptive.w(double.infinity) ,
+            width: Adaptive.w(double.infinity),
             child: TextButton(
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.all(5.0),
@@ -103,6 +154,21 @@ Widget succes(BuildContext context){
         ],
       ),
     ),
+  );
+}
+
+void showConfirmationDialog(BuildContext context, {
+  required String title,
+  required String content,
+  required VoidCallback onTapYes,
+  required VoidCallback onTapNon,
+}) {
+  // Affiche la boîte de dialogue
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return validation(context, title: title, content: content, onTapYes: onTapYes, onTapNon: onTapNon);
+    },
   );
 }
 
@@ -119,8 +185,6 @@ void showSuccesDialog(BuildContext context) {
   Future.delayed(Duration(seconds: 2), () {
     Navigator.of(context).pop(); // Ferme la boîte de dialogue
   });
-
-
 }
 
 // Fonction pour afficher la boîte de dialogue et la fermer après un certain temps
@@ -139,7 +203,7 @@ void showLoadingDialog(BuildContext context, Duration duration) {
   });
 }
 
-AlertDialog alertDialogue= AlertDialog(
+AlertDialog alertDialogue = AlertDialog(
   backgroundColor: KColorWhite,
   content: Container(
     width: Adaptive.w(double.infinity),
@@ -154,8 +218,13 @@ AlertDialog alertDialogue= AlertDialog(
             ),
             Column(
               children: [
-                Image.asset("assets/succes.png", width: Adaptive.w(20),),
-                SizedBox(height: 1.h,),
+                Image.asset(
+                  "assets/succes.png",
+                  width: Adaptive.w(20),
+                ),
+                SizedBox(
+                  height: 1.h,
+                ),
                 text("SUCCES", fontSize: textSizeLarge),
               ],
             )
@@ -169,7 +238,7 @@ AlertDialog alertDialogue= AlertDialog(
 Widget text(
   String? text, {
   var fontSize = 18.0,
-      var fontWeight,
+  var fontWeight,
   Color? textColor,
   var fontFamily,
   var overflow,
@@ -186,8 +255,8 @@ Widget text(
     textAllCaps ? text!.toUpperCase() : text!,
     textAlign: isCentered ? TextAlign.center : TextAlign.start,
     maxLines: isLongText ? null : maxLine,
-    overflow: overflow?? TextOverflow.ellipsis,
-    softWrap: softWrap? true:null,
+    overflow: overflow ?? TextOverflow.ellipsis,
+    softWrap: softWrap ? true : null,
     style: TextStyle(
       fontFamily: fontFamily ?? null,
       fontWeight: fontWeight,
