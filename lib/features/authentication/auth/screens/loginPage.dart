@@ -58,6 +58,15 @@ class _LoginPageState extends State<LoginPage> {
                             controller: emailController,
                             focusNode: emailFocus,
                             nextFocus: passwordFocus,
+                            validator: (value){
+                              if(value == null || value.isEmpty){
+                                return "Email Required";
+                              }
+                              if(!validationEmail(value)){
+                                return "Veilleez entrer un email valide";
+                              }
+                              return null;
+                            },
                             onSaved: (String? value) {
                               emailController.text = value ?? "";
                               setState(() {});
@@ -72,9 +81,10 @@ class _LoginPageState extends State<LoginPage> {
                             isPassword: true,
                             isPasswordVisible: passwordVisible,
                             validator: (value) {
-                              return value!.isEmpty
-                                  ? "Mot de passe Required"
-                                  : '';
+                              if(value == null || value.isEmpty){
+                                return "Mot de passe Required";
+                              }
+                              return null;
                             },
                             textInputAction: TextInputAction.done,
                             suffixIconSelector: () {
@@ -116,23 +126,22 @@ class _LoginPageState extends State<LoginPage> {
                                     spacing_standard)),
                             color: KcolorPrimary,
                             onPressed: () {
-                              if (emailController.text.isEmpty ||
-                                  password.text.isEmpty) {
-                                SnackBar(
-                                    content: Text(
-                                        "Veillez mettre le mot de passe ou email"));
+                              if (_formKey.currentState!.validate()) {
+                                showLoadingDialog(context, Duration(seconds: 2));
+                                Future.delayed(Duration(seconds: 2),(){
+                                  Navigator.pushNamedAndRemoveUntil(context,Routes.home,(route) => false);
+
+                                });
+                                password.clear();
+                                emailController.clear();
                               }
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  Routes.home,
-                                      (route) => false);
                             },
                           ),
                         ),
                       ),
                       TextButton(onPressed: (){
-                        //Navigator.pushNamed(context, Routes.signUp);
-                      }, child: text("SignUp", textColor: KcolorPrimary, fontSize: 16.sp))
+                        Navigator.pushNamed(context, Routes.signUp);
+                      }, child: text("Pas de compte? SignUp", textColor: KcolorPrimary, fontSize: 16.sp))
                     ],
                   ),
                 ),

@@ -15,14 +15,19 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
+  FocusNode confirmPasswordFocus = FocusNode();
   FocusNode nameFocus = FocusNode();
+  FocusNode prenomFocus = FocusNode();
   bool passwordVisible = false;
+  bool confirmePasswordVisible = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController prenomController = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +62,36 @@ class _SignUpPageState extends State<SignUpPage> {
                               Padding(
                                 padding: EdgeInsets.only(top: spacing_standard, right: spacing_standard, left: spacing_standard ),
                                 child: formField(
+                                    context, "Prénom",
+                                    controller: prenomController,
+                                    focusNode: prenomFocus,
+                                    nextFocus: nameFocus,
+                                    validator: (value) {
+                                      if(value == null || value.isEmpty){
+                                        return "Prénom Required";
+                                      }
+                                      return null;
+                                    },
+                                    onSaved: (String? value){
+                                      prenomController.text = value??"";
+                                      setState(() {});
+                                    },
+                                    prefixIcon: Icons.perm_identity
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: spacing_standard, right: spacing_standard, left: spacing_standard ),
+                                child: formField(
                                     context, "Nom",
                                     controller: nameController,
                                     focusNode: nameFocus,
                                     nextFocus: emailFocus,
+                                    validator: (value) {
+                                      if(value == null || value.isEmpty){
+                                        return "Nom Required";
+                                      }
+                                      return null;
+                                    },
                                     onSaved: (String? value){
                                       nameController.text = value??"";
                                       setState(() {});
@@ -75,6 +106,16 @@ class _SignUpPageState extends State<SignUpPage> {
                                     controller: emailController,
                                     focusNode: emailFocus,
                                     nextFocus: passwordFocus,
+                                    validator: (value) {
+                                      if(value == null || value.isEmpty){
+                                        return "Email Required";
+                                      }
+                                      if(!validationEmail(value)){
+                                        return "Veilleez entrer un email valide";
+                                      }
+                                      return null;
+                                    },
+                                    keyboardType: TextInputType.emailAddress,
                                     onSaved: (String? value){
                                       emailController.text = value??"";
                                       setState(() {});
@@ -89,9 +130,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                     isPassword: true,
                                     isPasswordVisible: passwordVisible,
                                     validator: (value) {
-                                      return value!.isEmpty ? "Mot de passe Required" : '';
+                                      if(value == null || value.isEmpty){
+                                        return "Mot de passe Required";
+                                      }
+                                      return null;
                                     },
-                                    textInputAction: TextInputAction.done,
                                     suffixIconSelector: () {
                                       setState(() {
                                         passwordVisible = !passwordVisible;
@@ -100,8 +143,37 @@ class _SignUpPageState extends State<SignUpPage> {
                                     suffixIcon: passwordVisible? Icons.visibility_off:Icons.visibility,
                                     controller: password,
                                     focusNode: passwordFocus,
+                                    nextFocus: confirmPasswordFocus,
                                     onSaved: (String? value){
                                       password.text = value??"";
+                                      setState(() {});
+                                    },
+                                    prefixIcon: Icons.lock_clock_outlined
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: spacing_standard, right: spacing_standard, left: spacing_standard ),
+                                child: formField(
+                                    context, "Confirmé mot de passe",
+                                    isPassword: true,
+                                    isPasswordVisible: confirmePasswordVisible,
+                                    validator: (value) {
+                                      if(value == null || value.isEmpty){
+                                        return "Confirmé mot de passe Required";
+                                      }
+                                      return null;
+                                    },
+                                    textInputAction: TextInputAction.done,
+                                    suffixIconSelector: () {
+                                      setState(() {
+                                        confirmePasswordVisible = !confirmePasswordVisible;
+                                      });
+                                    },
+                                    suffixIcon: confirmePasswordVisible? Icons.visibility_off:Icons.visibility,
+                                    controller: confirmPassword,
+                                    focusNode: confirmPasswordFocus,
+                                    onSaved: (String? value){
+                                      confirmPassword.text = value??"";
                                       setState(() {});
                                     },
                                     prefixIcon: Icons.lock_clock_outlined
@@ -114,20 +186,29 @@ class _SignUpPageState extends State<SignUpPage> {
                                   child: MaterialButton(
                                     padding: EdgeInsets.only(top: spacing_standard, bottom: spacing_standard, left: spacing_standard, right: spacing_standard),
                                     child: Text("Enregistrer", style: TextStyle(color: KColorWhite)),
-                                    shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(spacing_standard)),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(spacing_standard)),
                                     color: KcolorPrimary,
                                     onPressed: () {
-                                      if(emailController.text.isEmpty || password.text.isEmpty){
-                                        SnackBar(content: Text("Veillez mettre le mot de passe ou email"));
+                                      if(_formKey.currentState!.validate()){
+                                        showLoadingDialog(context, Duration(seconds: 2));
+                                        Future.delayed(Duration(seconds: 2),(){
+                                          Navigator.pushNamedAndRemoveUntil(context,Routes.home,(route) => false);
+
+                                        });
+                                        password.clear();
+                                        confirmPassword.clear();
+                                        emailController.clear();
+                                        nameController.clear();
+                                        prenomController.clear();
+                                        //SnackBar(content: Text("Veillez mettre le mot de passe ou email"));
                                       }
-                                      //Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route) => false);
                                     },
                                   ),
                                 ),
                               ),
                               TextButton(onPressed: (){
                                 Navigator.pushNamed(context, Routes.login);
-                              }, child: text("login", textColor: KcolorPrimary, fontSize: 16.sp))
+                              }, child: text("Déjà un compte? Login", textColor: KcolorPrimary, fontSize: 16.sp))
                             ],
                           ),
                         ),
