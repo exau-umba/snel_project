@@ -135,7 +135,7 @@ bool isDialOpen = false;
           ],
         ),
         //backgroundColor: KcolorPrimary,
-        floatingActionButton : SpeedDial(
+        /*floatingActionButton : SpeedDial(
           backgroundColor: KcolorPrimary,
           animatedIconTheme: IconThemeData(color: KColorWhite),
           animatedIcon: AnimatedIcons.menu_close,
@@ -152,8 +152,8 @@ bool isDialOpen = false;
               onTap: () => Navigator.pushNamed(context, Routes.add_abonnement),
             ),
           ],
-        ),
-        /*floatingActionButton: FloatingActionButton(
+        ),*/
+        floatingActionButton: FloatingActionButton(
           backgroundColor: KcolorPrimary,
           foregroundColor: KColorWhite,
           onPressed: () async {
@@ -166,7 +166,7 @@ bool isDialOpen = false;
             }*/
           },
           child: Icon(Icons.add),
-        ),*/
+        ),
         body: AnimatedContainer(
           duration: Duration(milliseconds: 300),
             color: isDialOpen ? Colors.grey[200] : Colors.white,
