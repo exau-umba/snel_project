@@ -13,6 +13,8 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
         emit(SettingsState());
       }else if(event is NavigateToPaiement){
         emit(PaiementState());
+      } else if(event is NavigateToPrepaye){
+        emit(PrepayeState());
       }
     });
   }

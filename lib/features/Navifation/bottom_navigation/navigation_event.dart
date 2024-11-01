@@ -21,3 +21,9 @@ class NavigateToPaiement extends NavigationEvent {
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
+
+class NavigateToPrepaye extends NavigationEvent {
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}

@@ -26,3 +26,10 @@ class PaiementState extends NavigationState {
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
+
+class PrepayeState extends NavigationState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}
+

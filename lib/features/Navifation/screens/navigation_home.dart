@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:snel_project/features/authentication/compte_snel/screens/abonnement.dart';
 import 'package:snel_project/features/paiement/screens/paiement.dart';
 import 'package:snel_project/pages/Dashboard.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:snel_project/utils/components/components.dart';
 import '../../../utils/constate.dart';
 import '../../settings/screens/setting.dart';
 import '../bottom_navigation/navigation_bloc.dart';
@@ -21,19 +23,23 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context, state) {
           if (state is HomeState) {
             return DashboardScreen();
-          } else if (state is SettingsState) {
-            return Center(child: Paiement());
           } else if (state is PaiementState) {
+            return Center(child: Paiement());
+          } else if (state is SettingsState) {
             return Center(child: Setting());
+          } else if(state is PrepayeState){
+           return Center(child: Abonnement(),);
           }
           return DashboardScreen(); // État par défaut
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 16.sp,
+        unselectedItemColor: KColorGris,
         elevation: 0.sp,
         enableFeedback: false,
         selectedItemColor: KcolorPrimary,
+        backgroundColor: KcolorPrimary.withOpacity(1.5.sp),
         currentIndex: _selectedIndex,
         items: [
           BottomNavigationBarItem(
@@ -43,6 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.event_note),
             label: 'Paiement',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fact_check_outlined),
+            label: 'Prépayé',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info),
@@ -58,10 +68,12 @@ class _HomeScreenState extends State<HomeScreen> {
               context.read<NavigationBloc>().add(NavigateToHome());
               break;
             case 1:
-              context.read<NavigationBloc>().add(NavigateToSettings());
+              context.read<NavigationBloc>().add(NavigateToPaiement());
               break;
             case 2:
-              context.read<NavigationBloc>().add(NavigateToPaiement());
+              context.read<NavigationBloc>().add(NavigateToPrepaye());
+            case 3:
+              context.read<NavigationBloc>().add(NavigateToSettings());
               break;
           }
         },
