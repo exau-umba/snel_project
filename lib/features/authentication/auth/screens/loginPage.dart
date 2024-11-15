@@ -132,8 +132,6 @@ class _LoginPageState extends State<LoginPage> {
                                   Navigator.pushNamedAndRemoveUntil(context,Routes.home,(route) => false);
 
                                 });
-                                password.clear();
-                                emailController.clear();
                               }
                             },
                           ),

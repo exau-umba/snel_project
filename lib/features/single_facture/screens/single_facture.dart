@@ -273,9 +273,11 @@ class _SingleFactureState extends State<SingleFacture> {
       ),
     );
   }
+
   mCornerBottomSheet(BuildContext aContext) {
     showModalBottomSheet(
         context: aContext,
+        showDragHandle: true,
         backgroundColor: KColorWhite,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),

@@ -503,12 +503,6 @@ class _EnergyConversionFormState extends State<EnergyConversionForm> {
                       showConfirmationDialog(context,
                           title: 'Confirmation',
                           content: 'Voulez-vous effectuer cce paiment ?',
-                          onTapYes: () {
-                            showSuccesDialog(context);
-                          },
-                          onTapNon: () {
-                        Navigator.pop(context);
-                          }
                       );
                       //showSuccesDialog(context);
                     },

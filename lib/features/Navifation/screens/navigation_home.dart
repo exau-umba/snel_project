@@ -35,11 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 16.sp,
-        unselectedItemColor: KColorGris,
+        unselectedItemColor: t12_text_secondary,
         elevation: 0.sp,
+        type: BottomNavigationBarType.shifting,
         enableFeedback: false,
+        showUnselectedLabels: true,
         selectedItemColor: KcolorPrimary,
-        backgroundColor: KcolorPrimary.withOpacity(1.5.sp),
+        backgroundColor: KColorWhite,
         currentIndex: _selectedIndex,
         items: [
           BottomNavigationBarItem(
@@ -47,11 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.event_note),
+            icon: Icon(Icons.payment),
             label: 'Paiement',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.fact_check_outlined),
+            icon: Icon(Icons.account_balance_wallet),
             label: 'Prépayé',
           ),
           BottomNavigationBarItem(

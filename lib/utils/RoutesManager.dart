@@ -5,6 +5,7 @@ import 'package:snel_project/data/models/compte_snel.dart';
 import 'package:snel_project/features/authentication/auth/screens/sign_up.dart';
 import 'package:snel_project/features/authentication/compte_snel/screens/abonnement.dart';
 import 'package:snel_project/features/authentication/compte_snel/screens/add_abonnement.dart';
+import 'package:snel_project/features/authentication/compte_snel/screens/recu.dart';
 import 'package:snel_project/features/form_mode_payment/screens/form_payment.dart';
 import 'package:snel_project/features/paiement/screens/mode_payment.dart';
 import 'package:snel_project/features/single_facture/screens/single_facture.dart';
@@ -34,6 +35,11 @@ class RoutesManager{
         return MaterialPageRoute(builder: (_)=> Abonnement());
       case Routes.Subscription:
         return MaterialPageRoute(builder: (_)=>SubscriptionScreen());
+      case Routes.recu:
+        print("============================================ ${r.arguments}");
+        var recu = r.arguments as Map<String, dynamic>;
+        var recuF = Facture.fromJson(recu);
+        return MaterialPageRoute(builder: (_)=> Recu(recu: recuF,));
       case Routes.modePayment:
         var objet = r.arguments as Map<String, dynamic>;
         return MaterialPageRoute(builder: (_)=>ModePayment(objet: objet,));

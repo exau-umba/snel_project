@@ -10,6 +10,7 @@ class Routes{
   static const String addAccountSnel = "accounte_snel";
   static const String login = "login";
   static const String signUp = "signUp";
+  static const String recu = "recu";
   static const String single_fature = "single_facture";
   static const String single_compte = "single_compte";
 }

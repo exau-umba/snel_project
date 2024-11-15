@@ -195,11 +195,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                           Navigator.pushNamedAndRemoveUntil(context,Routes.home,(route) => false);
 
                                         });
-                                        password.clear();
-                                        confirmPassword.clear();
-                                        emailController.clear();
-                                        nameController.clear();
-                                        prenomController.clear();
+
                                         //SnackBar(content: Text("Veillez mettre le mot de passe ou email"));
                                       }
                                     },

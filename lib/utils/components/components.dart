@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../constate.dart';
@@ -40,6 +42,14 @@ bool validationEmail(value) {
       .hasMatch(value);
 }
 
+String generateRandomText(int length) {
+  const String chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#\$&*';
+  Random random = Random();
+  return List.generate(length, (index) => chars[random.nextInt(chars.length)]).join();
+}
+
+
+
 Widget onLoading2(BuildContext context) {
   return Container(
     alignment: Alignment.center,
@@ -72,8 +82,6 @@ Widget onLoading2(BuildContext context) {
 Widget validation(BuildContext context, {
   String? title,
   String? content,
-  VoidCallback? onTapYes,
-  VoidCallback? onTapNon,
 }) {
   return AlertDialog(
     title: text(title??'',
@@ -91,14 +99,17 @@ Widget validation(BuildContext context, {
                 padding: const EdgeInsets.all(5.0),
               ),
               child: text("Oui", textColor: KcolorPrimary, fontSize: 18.sp),
-              onPressed: () => onTapYes,
+              onPressed: () {
+                Navigator.pop(context);
+                showSuccesDialog(context);
+              },
             ),
             TextButton(
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.all(5.0),
               ),
               child: text("Annuler", textColor: KColorRed, fontSize: 18.sp),
-              onPressed: () => onTapNon,
+              onPressed: () => Navigator.pop(context),
             ),
           ],
         ),
@@ -160,14 +171,12 @@ Widget succes(BuildContext context) {
 void showConfirmationDialog(BuildContext context, {
   required String title,
   required String content,
-  required VoidCallback onTapYes,
-  required VoidCallback onTapNon,
 }) {
   // Affiche la boîte de dialogue
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return validation(context, title: title, content: content, onTapYes: onTapYes, onTapNon: onTapNon);
+      return validation(context, title: title, content: content);
     },
   );
 }
